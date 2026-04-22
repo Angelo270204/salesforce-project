@@ -7,7 +7,7 @@ I configured a custom Salesforce app to track "Engagements", establishing relati
 
 **Assumptions:**
 * **Apex over uiRecordApi:** Because the standard JavaScript `uiRecordApi` has limited support for creating `Task` records, I assumed the best practice was to build a custom Apex Controller (`EngagementSummaryController.cls`) to securely handle the DML operation, exposing it to the LWC via `@AuraEnabled`.
-* **Flow Due Date:** For the Flow requirement of "2 business days", I used the standard `TODAY() + 2` formula for simplicity within the scope of this technical assessment.
+* **Flow Due Date:** I implemented a `CASE(WEEKDAY(...))` formula to correctly calculate `TODAY() + 2 business days` (skipping weekends) for the follow-up task due date.
 
 **How to test each item:**
 * **#3 (Activity Logging):** Navigate to the "Consultoría Acme 2026" Engagement record. Check the Activity Timeline to see the manually logged call, email, and event (Kickoff meeting).
@@ -33,8 +33,27 @@ The source code can be found in the standard SFDX project structure within this 
 ## 3. The report and list view names
 
 * **Report Name:** `Engagement Pipeline` *(Built using a new Custom Report Type: "Engagements with Opportunities")*
-* **List View Names:** 1. `My Open Engagements`
-  2. `Q Engagements by Account`
+* **List View Names:** 
+1. `My Open Engagements`
+2. `Q Engagements by Account`
 
 ---
-*Note: The requested screenshots for the LWC, activity logging, Flow firing, report, and list view chart are attached in the `/screenshots` folder within this repository.*
+
+## 4. Screenshots / Evidence
+
+All requested evidence files are located in `/screenshots`:
+
+1. **Engagement record page + LWC:** 
+[`/screenshots/view-lwc.png`](./screenshots/view-lwc.png)
+
+2. **Logging a call / email / event:** 
+[`/screenshots/activity-timeline.png`](./screenshots/activity-timeline.png)
+
+3. **The Flow firing:** 
+[`/screenshots/flow.png`](./screenshots/flow.png)
+
+4. **The report + chart:** 
+[`/screenshots/report-chart.png`](./screenshots/report-chart.png)
+
+5. **List view chart:** 
+[`/screenshots/list-view-chart.png`](./screenshots/list-view-chart.png)
